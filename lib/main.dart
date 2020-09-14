@@ -1,8 +1,9 @@
 import 'package:animal_sound/models/Animal.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audio_cache.dart';
 import "dart:math";
+
+import 'screens/PetScreen.dart';
+import 'screens/WildScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,49 +25,63 @@ class MyApp extends StatelessWidget {
   }
 }
 
-var pets = [
-  Animal(rus: "Слон", kg: "Пил", img: "assets/slon.png"),
-];
-var wildAnimals = [
-  Animal(rus: "Слон", kg: "Пил", img: "assets/slon.png"),
-];
+
+
 
 class MyHomePage extends StatelessWidget {
-  final player = AudioCache();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: TweenAnimationBuilder(
-          duration: Duration(seconds: 2),
-          tween: Tween<double>(begin: 0, end: 1),
-          builder: (_, double angle, __) {
-            return Column(
-              children: [
-                Transform.scale(
-                  scale: angle,
-                  child: RaisedButton(
-                      onPressed: () {
-                        player.clearCache();
-                        player.play("animals/cat.mp3");
-                      },
-                      child: Image(image: AssetImage(pets[0].getImg()))),
+        backgroundColor: Colors.white,
+        appBar: AppBar(),
+        body: Padding(
+          padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Image(image: AssetImage("assets/logo.png")),
+              SizedBox(height: 50,),
+              Container(
+                width: 250,
+                height: 50,
+                child: RaisedButton(
+                  color: Color(0xFF35D451),
+                  child: Text("Домашние животные"),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => PetScreen()));
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),),
                 ),
-                Transform.scale(
-                  scale: angle,
-                  child: RaisedButton(
-                      onPressed: () {
-                        player.clearCache();
-                        player.play("animals/cow.mp3");
-                      },
-                      child: Image(image: AssetImage(pets[0].getImg()))),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: 250,
+                height: 50,
+                child: RaisedButton(
+                  color: Color(0xFFFDE104),
+                  child: Text("Дикие животные"),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => WildScreen()));
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0)),
                 ),
-              ],
-            );
-          },
-        ),
-      ),
-    );
+              )
+            ],
+          ),
+        ));
   }
 }
+
+/*
+
+
+
+      */
