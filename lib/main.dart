@@ -34,7 +34,6 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
           child: Column(

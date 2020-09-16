@@ -16,7 +16,7 @@ var pets = [
       img: "assets/animals/cavy.jpg",
       sound: "assets/animals/cavy.mp3"),
   Animal(
-      rus: "Курицв",
+      rus: "Курица",
       kg: "Тоок",
       img: "assets/animals/chicken.jpg",
       sound: "assets/animals/chicken.mp3"),
@@ -33,12 +33,12 @@ var pets = [
   Animal(
       rus: "Корова",
       kg: "Уй",
-      img: "assets/animals/cow.png",
+      img: "assets/animals/cow.jpg",
       sound: "assets/animals/cow.mp3"),
   Animal(
       rus: "Собака",
       kg: "Ит",
-      img: "assets/animals/dog.png",
+      img: "assets/animals/dog.jpg",
       sound: "assets/animals/dog.mp3"),
   Animal(
       rus: "Утка",
@@ -49,7 +49,7 @@ var pets = [
       rus: "Хорёк",
       kg: "Күзөн",
       img: "assets/animals/ferret.png",
-      sound: "assets/animals/ferret.mp3"),
+      sound: "assets/animals/ferret.wav"),
   Animal(
       rus: "Козёл",
       kg: "Теке",
@@ -135,7 +135,7 @@ class _PetScreenState extends State<PetScreen> {
             pets[currentPet].getRus(),
             style: kBoldTextStyle,
           ),
-          Center(
+          Expanded(
             child: TweenAnimationBuilder(
               duration: Duration(seconds: 2),
               tween: Tween<double>(begin: 0, end: 1),
@@ -166,11 +166,16 @@ class _PetScreenState extends State<PetScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              // Left button
               currentPet > 0
                   ? FlatButton(
                       onPressed: () {
                         setState(() {
                           currentPet--;
+
+                          player.stop();
+                          player.setAsset(pets[currentPet].getSound());
+                          player.play();
                         });
                       },
                       child: Image(
@@ -182,8 +187,10 @@ class _PetScreenState extends State<PetScreen> {
                       width: 50.0,
                       height: 50.0,
                     ),
+              // Home button
               FlatButton(
                   onPressed: () {
+                    player.stop();
                     Navigator.pop(context);
                   },
                   child: Image(
@@ -191,11 +198,16 @@ class _PetScreenState extends State<PetScreen> {
                     height: 50.0,
                     image: AssetImage("assets/home.png"),
                   )),
+              // Right button
               currentPet < pets.length - 1
                   ? FlatButton(
                       onPressed: () {
-                        setState(() {
+                        setState(()  {
                           currentPet++;
+
+                          player.stop();
+                          player.setAsset(pets[currentPet].getSound());
+                          player.play();
                         });
                       },
                       child: Image(

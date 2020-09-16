@@ -16,17 +16,17 @@ var wild = [
   Animal(rus: "Медведь", kg: "Аюу", img: "assets/animals/wildanimals/bear.jpg", sound: "assets/animals/wildanimals/bear.mp3"),
   Animal(rus: "Бобер", kg: "Кемчет", img: "assets/animals/wildanimals/beaver.jpg", sound: "assets/animals/wildanimals/beaver.mp3"),
   Animal(rus: "Броненосец", kg: "Броненосец", img: "assets/animals/wildanimals/armadillo.jpg", sound: "assets/animals/wildanimals/armadillo.mp3"),
-  Animal(rus: "Пчела", kg: "Бал аарысы", img: "assets/animals/wildanimals/bee.png", sound: "assets/animals/wildanimals/bee.mp3"),
+  Animal(rus: "Пчела", kg: "Бал аарысы", img: "assets/animals/wildanimals/bee.jpg", sound: "assets/animals/wildanimals/bee.mp3"),
   Animal(rus: "Бизон", kg: "Бизон", img: "assets/animals/wildanimals/bison.jpg", sound: "assets/animals/wildanimals/bison.mp3"),
   Animal(rus: "Верблюд", kg: "Төө", img: "assets/animals/wildanimals/camel.png", sound: "assets/animals/wildanimals/camel.mp3"),
   Animal(rus: "Шимпанзе", kg: "Шимпанзе", img: "assets/animals/wildanimals/chimpanzee.png", sound: "assets/animals/wildanimals/chimpanzee.wav"),
   Animal(rus: "Кузнечик", kg: "Чегиртке", img: "assets/animals/wildanimals/cricket.png", sound: "assets/animals/wildanimals/cricket.mp3"),
   Animal(rus: "Крокодил", kg: "Крокодил", img: "assets/animals/wildanimals/crocodile.jpg", sound: "assets/animals/wildanimals/crocodile.wav"),
   Animal(rus: "Олень", kg: "Бугу", img: "assets/animals/wildanimals/deer.png", sound: "assets/animals/wildanimals/deer.mp3"),
-  Animal(rus: "Дельфин", kg: "Дельфин", img: "assets/animals/wildanimals/dolphin.png", sound: "assets/animals/wildanimals/dolphin.wav"),
+  Animal(rus: "Дельфин", kg: "Дельфин", img: "assets/animals/wildanimals/dolphin.png", sound: "assets/animals/wildanimals/dolphin.mp3"),
 
   Animal(rus: "Осёл", kg: "Эшек", img: "assets/animals/wildanimals/donkey.png", sound: "assets/animals/wildanimals/donkey.mp3"),
-  Animal(rus: "Стрекоза", kg: "Ийнелик", img: "assets/animals/wildanimals/dragonfly.png", sound: "assets/animals/wildanimals/dragonfly.mp3"),
+  Animal(rus: "Стрекоза", kg: "Ийнелик", img: "assets/animals/wildanimals/dragonfly.jpg", sound: "assets/animals/wildanimals/dragonfly.mp3"),
   Animal(rus: "Слон", kg: "Пил", img: "assets/animals/wildanimals/elephant.png", sound: "assets/animals/wildanimals/elephant.mp3"),
   Animal(rus: "Муха", kg: "Чымын", img: "assets/animals/wildanimals/fly.png", sound: "assets/animals/wildanimals/fly.mp3"),
   Animal(rus: "Лиса", kg: "Түлкү", img: "assets/animals/wildanimals/fox.jpg", sound: "assets/animals/wildanimals/fox.wav"),
@@ -77,7 +77,7 @@ class _WildScreenState extends State<WildScreen> {
         children: [
           SizedBox(height: 50,),
           Text(wild[currentWild].getRus(), style: kBoldTextStyle,),
-          Center(
+          Expanded(
             child: TweenAnimationBuilder(
               duration: Duration(seconds: 2),
               tween: Tween<double>(begin: 0, end: 1),
@@ -106,17 +106,38 @@ class _WildScreenState extends State<WildScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              // Left button
               currentWild > 0 ?
                 FlatButton(onPressed: () {
                   setState(() {
                     currentWild--;
+                    
+                    player.stop();
+                    player.setAsset(wild[currentWild].getSound());
+                    player.play();
                   });
                 }, child: Image(width: 50.0, height: 50.0, image: AssetImage("assets/left.png"),)) :
                 SizedBox(width: 50.0, height: 50.0,),
+              // Home button
+              FlatButton(
+                  onPressed: () {
+                    player.stop();
+                    Navigator.pop(context);
+                  },
+                  child: Image(
+                    width: 50.0,
+                    height: 50.0,
+                    image: AssetImage("assets/home.png"),
+                  )),
+              // Right button
               currentWild < wild.length-1 ?
                 FlatButton(onPressed: () {
                   setState(() {
                     currentWild++;
+
+                    player.stop();
+                    player.setAsset(wild[currentWild].getSound());
+                    player.play();
                   });
                 }, child: Image(width: 50.0, height: 50.0, image: AssetImage("assets/right.png"),)) :
                 SizedBox(width: 50.0, height: 50.0,),
