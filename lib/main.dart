@@ -25,23 +25,22 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
-
 class MyHomePage extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
+        // resizeToAvoidBottomPadding: false,
         body: Padding(
           padding: const EdgeInsets.only(left: 15.0, right: 15.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image(image: AssetImage("assets/logo.png")),
-              SizedBox(height: 50,),
+              Expanded(child: Image(image: AssetImage("assets/logo.png"))),
+              SizedBox(
+                height: 50,
+              ),
               Container(
                 width: 250,
                 height: 50,
@@ -53,7 +52,8 @@ class MyHomePage extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => PetScreen()));
                   },
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),),
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
                 ),
               ),
               SizedBox(
@@ -72,7 +72,8 @@ class MyHomePage extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0)),
                 ),
-              )
+              ),
+              SizedBox(height: 20.0,),
             ],
           ),
         ));

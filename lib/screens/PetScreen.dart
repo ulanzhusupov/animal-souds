@@ -48,7 +48,7 @@ var pets = [
   Animal(
       rus: "Хорёк",
       kg: "Күзөн",
-      img: "assets/animals/ferret.png",
+      img: "assets/animals/ferret.jpg",
       sound: "assets/animals/ferret.wav"),
   Animal(
       rus: "Козёл",
@@ -140,22 +140,16 @@ class _PetScreenState extends State<PetScreen> {
               duration: Duration(seconds: 2),
               tween: Tween<double>(begin: 0, end: 1),
               builder: (_, double angle, __) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Transform.scale(
-                      scale: angle,
-                      child: FlatButton(
-                          onPressed: () async {
-                            await player.stop();
-                            await player.setAsset(pets[currentPet].getSound());
-                            await player.play();
-                          },
-                          child: Image(
-                              width: 250,
-                              image: AssetImage(pets[currentPet].getImg()))),
-                    ),
-                  ],
+                return Transform.scale(
+                  scale: angle,
+                  child: FlatButton(
+                      onPressed: () async {
+                        await player.stop();
+                        await player.setAsset(pets[currentPet].getSound());
+                        await player.play();
+                      },
+                      child:
+                          Image(image: AssetImage(pets[currentPet].getImg()))),
                 );
               },
             ),
@@ -202,7 +196,7 @@ class _PetScreenState extends State<PetScreen> {
               currentPet < pets.length - 1
                   ? FlatButton(
                       onPressed: () {
-                        setState(()  {
+                        setState(() {
                           currentPet++;
 
                           player.stop();
@@ -222,7 +216,7 @@ class _PetScreenState extends State<PetScreen> {
             ],
           ),
           SizedBox(
-            height: 10,
+            height: 20.0,
           ),
         ],
       ),
